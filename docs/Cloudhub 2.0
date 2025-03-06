@@ -1,0 +1,18 @@
+#What is Cloud hub 2.0
+Apli Deploymying and running in a containerized environment based on kubernetes. It is ia fully managed,containerized service for deploying and running mulesoft applicationn
+
+easily deploy n run application in a resilitent and scalable env.
+contained based isolation and not vm level isolation.
+Application can deployed in prviate and shared space 
+Private-
+shared space- deployeing in multitenant and shared space. data is not shared but infrastructure is shared.
+
+Cloudhub 2.0 available in 12 regions globally
+can deploy application on multiple replicas 
+more granual vCore options.Maz vCore allocation per replica is 4 vCore
+can be deployed on clustered mode. min. 2 replicas for clustering.
+support for rolling update n recreate functionality.
+easy/dynamic scalable.horizonta- no of replicas and vertical scaling is increase no of vCore size
+support intelligent healing and zero downitme updates
+stores upto 200mb log data per config upto 30 days
+
