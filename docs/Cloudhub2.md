@@ -1,4 +1,4 @@
-#What is Cloud hub 2.0
+# What is Cloud hub 2.0
 Apli Deploymying and running in a containerized environment based on kubernetes. It is ia fully managed,containerized service for deploying and running mulesoft applicationn
 
 easily deploy n run application in a resilitent and scalable env.
@@ -17,7 +17,7 @@ support intelligent healing and zero downitme updates
 stores upto 200mb log data per config upto 30 days
 
 #Cloudhub 2.0 Architecture
-##private sapce-
+## private sapce-
 support vanity domain
 support for TLS contenxt
 allow to connect priavre or corporate datacenter and cloud using vpn and trasit gateway
@@ -77,7 +77,7 @@ Features nOt supported -
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
-#Deployment on Cloudhub 2.0
+# Deployment on Cloudhub 2.0
 Option 
 1. shared space
 
@@ -128,11 +128,11 @@ Netwrok -- create private network  -give CIDR range  (how many applicationa re y
 Domains & TLS
 - > upload PEM file
 
-##Firewall rules- 
+## Firewall rules- 
 Inbound Traffic  -
 Outbound traffic
 
-##Static IPs- >
+## Static IPs- >
 all traffic goes from application to ingress load balancer and then go out of network. so statis ip is assigned on ingress level
 limit = 2x of production vcores
 
@@ -144,3 +144,25 @@ enable aws service role -enable
 create connection- setup transit gateway or VPN
 
 remove public url to restrict access from public url-- you cab keep private url or remove it and app to app connection on private dns still works
+
+## Difference Between Cloudhub 1.0 and Cloudhub 2.0
+Topics	                Cloudhub 1.0	             Cloudhub 2.0
+Isolation	            VPC(Virtual Private Cloud)	Private Space(EKS Cluster)
+Worker               	EC2 Server Instance(VM)	   Replica(Container instance)
+Load Balancer        	Dedicated Load Balancer	   Ingress Load Balancer
+Shared/Public cloud  	Public Worker Cloud	       Shared Space(Multitenant)
+Scaling/Proving      	Supported	                  Supported
+URL Rewriting	        Supported(DLB)	             Supported(APP)
+Load Balancer Lods    	Not Supported	             Supported
+Multiple Custome endpoints	Not Supported         	Supported
+Multple truststores	   Not Supported	             Supported
+Direct Connect/VPC Peering	Supported	              Not Supported
+VPC/VON.Transit Gateway	Supported	                Supported(Private space)
+Outbound firewall rules	Not Supported            	Supported
+Log Forwarding	          Supported                	Supported
+Static IP              	supported(APP)           	Supported(Ingress Balancer)-small set
+Persistent Queue	        Supported	               Not Supported(use Object store v2)
+Runtime support         	3.6.x onwords            	From 4.3/4.4.x onwords
+Datagraph	              Supported                 	Not Supported
+API Proxy	              Supported                 	Not Supported
+Flex Gateway	           Supported                 	Not Supported
