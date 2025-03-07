@@ -147,24 +147,26 @@ create connection- setup transit gateway or VPN
 
 remove public url to restrict access from public url-- you cab keep private url or remove it and app to app connection on private dns still works
 
+
 ## Difference Between Cloudhub 1.0 and Cloudhub 2.0
-Topics	                Cloudhub 1.0	             Cloudhub 2.0
-Isolation	            VPC(Virtual Private Cloud)	Private Space(EKS Cluster)
-Worker               	EC2 Server Instance(VM)	   Replica(Container instance)
-Load Balancer        	Dedicated Load Balancer	   Ingress Load Balancer
-Shared/Public cloud  	Public Worker Cloud	       Shared Space(Multitenant)
-Scaling/Proving      	Supported	                  Supported
-URL Rewriting	        Supported(DLB)	             Supported(APP)
-Load Balancer Lods    	Not Supported	             Supported
-Multiple Custome endpoints	Not Supported         	Supported
-Multple truststores	   Not Supported	             Supported
-Direct Connect/VPC Peering	Supported	              Not Supported
-VPC/VON.Transit Gateway	Supported	                Supported(Private space)
-Outbound firewall rules	Not Supported            	Supported
-Log Forwarding	          Supported                	Supported
-Static IP              	supported(APP)           	Supported(Ingress Balancer)-small set
-Persistent Queue	        Supported	               Not Supported(use Object store v2)
-Runtime support         	3.6.x onwords            	From 4.3/4.4.x onwords
-Datagraph	              Supported                 	Not Supported
-API Proxy	              Supported                 	Not Supported
-Flex Gateway	           Supported                 	Not Supported
+|Topics| Cloudhub 1.0|  Cloudhub 2.0|
+|------|--------------|-------------|
+|Isolation| VPC(Virtual Private Cloud)|Private Space(EKS Cluster)|
+|Worker|EC2 Server Instance(VM)|Replica(Container instance)|
+|Load Balancer  |Dedicated Load Balancer|Ingress Load Balancer|
+|Shared/Public cloud  |Public Worker Cloud|  Shared Space(Multitenant)|
+|Scaling/Proving|Supported|Supported|
+|URL Rewriting|Supported(DLB)|  Supported(APP)|
+|Load Balancer Lods |Not Supported|  Supported|
+|Multiple Custome endpoints|Not Supported|Supported|
+|Multple truststores|Not Supported|  Supported|
+|Direct Connect/VPC Peering|Supported|Not Supported|
+|VPC/VON.Transit Gateway|Supported| Supported(Private space)|
+|Outbound firewall rules|Not Supported|Supported|
+|Log Forwarding|  Supported |Supported|
+|Static IP  |supported(APP)  |Supported(Ingress Balancer)-small set|
+|Persistent Queue|Supported|Not Supported(use Object store v2)|
+|Runtime support|3.6.x onwords|From 4.3/4.4.x onwords|
+|Datagraph|Supported  |Not Supported|
+|API Proxy|Supported  |Not Supported|
+|Flex Gateway|Supported  |Not Supported|
