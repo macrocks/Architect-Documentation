@@ -170,3 +170,6 @@ remove public url to restrict access from public url-- you cab keep private url 
 |Datagraph|Supported  |Not Supported|
 |API Proxy|Supported  |Not Supported|
 |Flex Gateway|Supported  |Not Supported|
+
+
+Full comparison table is present on - https://docs.mulesoft.com/cloudhub-2/ch2-features
