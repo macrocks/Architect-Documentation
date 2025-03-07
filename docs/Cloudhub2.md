@@ -175,3 +175,5 @@ remove public url to restrict access from public url-- you cab keep private url 
 Full comparison table is present on - https://docs.mulesoft.com/cloudhub-2/ch2-features
 
 Cloudhub 2.0 Auto scaling - https://docs.mulesoft.com/cloudhub-2/ch2-configure-horizontal-autoscaling
+
+Externalize logs to splunk or external system - https://docs.mulesoft.com/cloudhub-2/ch2-integrate-log-system  (use log4j appender) no log forwarded option on Private space
