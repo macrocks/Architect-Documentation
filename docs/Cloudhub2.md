@@ -47,6 +47,7 @@ When you want to run your application in multitenant environment. on shared spac
 
 Architecture
 appln url -> http://myapp-unique-id.shard.usa-w2.cloudhub.io
+![image](https://github.com/user-attachments/assets/be6fadb3-a28b-4683-b45d-e4488b224282)
 
 
 # Private space
