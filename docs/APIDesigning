@@ -1,4 +1,46 @@
-#Topics
+## What is RAML?
+
+RAML stands for Restful API Modelling language
+RAML is a powerful language as a contract for APIs
+RAML is a YAML based language for describing RESTful APIs
+Highly readable by both humans and Computers
+It focuses on cleanly describing resources,method,parameters,responses,media types
+
+## RAML API Specifications in Mulesoft
+Simple and Structured way of representing APIs
+API structure is easily understood by everyone,i.e developers,partners and other API Consumers
+RAML Files can be used to auto generate documentation,mocked endpoints, interface for API implementations
+RAML is based on YAML and json
+
+E.g. 
+```
+/books:  --resource
+  get:  --http method
+    queryParameters:  --queryparameter
+      author:
+          displayName: Author
+          type: string
+          description: An author's full name
+          example: Mary Roach
+          required: false
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "data": {
+                    "id": "SbBGk",
+                    "author": "Mary Roach",
+                    "link": "http://e-bookmobile.com/books/Stiff"
+                  },
+                  "success": true,
+                  "status": 200
+                }
+  /{bookId}:  -paramterised subresource
+    post:
+ ```     
+
 
 1. RAML Fragments
 2. Traits
