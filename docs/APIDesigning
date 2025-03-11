@@ -23,11 +23,11 @@ E.g.
           description: An author's full name
           example: Mary Roach
           required: false
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
+      responses:   --this section is to define responses expected as part of this resource
+        200:  --http response status code
+          body:  
+            application/json:  -body type
+              example: |   -example
                 {
                   "data": {
                     "id": "SbBGk",
@@ -39,10 +39,31 @@ E.g.
                 }
   /{bookId}:  -paramterised subresource
     post:
+      body:
+        application/json:  //body type can json, xml, text or multipart
+          type: |
+            {
+              "type": "object",
+              "$schema": "http://json-schema.org/draft-03/schema",
+              "id": "http://jsonschema.net",
+              "required": true,
+              "properties": {
+                "songTitle": {
+                  "type": "string",
+                  "required": true,
+                  "minLength": 36,
+                  "maxLength": 36
+                }
+              }
+            }
+          example: |
+            {
+              "songTitle": "Get Lucky"
+            }
  ```     
 
+## what is RAML Fragment
+API fragments are reusable component of RAML to make the design and build of a reusable API even quicker and easier.
+Another advantage of building an API spec out of reusable API fragments is that consistency of definitions reduces the effort of implementing APIs.
 
-1. RAML Fragments
-2. Traits
-3. Resource Types
-4. 
+Fragment Type can DataType, Example or Trait
