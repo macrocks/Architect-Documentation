@@ -104,3 +104,88 @@ describedBy:
             }
 ```
 
+### DataTypes
+You can define custom data type which can be reused across multiple api's and endpoints.
+
+```
+#%RAML 1.0 DataType
+type: object
+description: reusable data type defined for products resource
+displayName: proucts data type
+properties:
+  name:
+    type: string
+    example: "Dettol Cleaner"
+    required: true
+  sin:
+    type: string
+    example: "1234-ds43-ds"
+    required: true
+    description: product serial no.
+  weight:
+    type: number
+    example: 100
+    required: true
+  weighScale:
+    type: string
+    example: "gram"
+    required: true
+
+```
+
+How to use this into RAML - as below 
+```
+types:
+  productDataType: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/products-datatype/1.0.0/products-datatype.raml
+
+/products:
+  get:
+    is: [common-header-fragment,common-response-fragment]
+    description: get products details
+    responses:
+      200:
+        body:
+          application/json:
+            type: productDataType
+```
+
+### Traits 
+Traits are the smallest reusable component that can define common characteristics across resource methods and resources.They can be a part of the resource (query or URI parameters).
+You can define traits for common headers, common query parameters, responses. 
+A Trait, like a method, can provide method-level nodes such as description, headers, query string parameters, and responses. Methods that use one or more Traits inherit nodes of those Traits. Usage of Traits is optional but is highly encouraged since it simplifies the API design and improves readability. Traits should be created as separate files and included at the start of the API RAML file.
+example of trait can be response or common header as below :
+```
+#%RAML 1.0 Trait
+
+headers:
+  x-correlation-Id:
+    type: string
+    description: unique transaction id/request id to identify request/trasnsaction
+    example: 3idso342kndso423kdnsln
+    required: true
+  x-source-system:
+    type: string
+    description: system name from request has originated
+    example: peg_oracle
+```
+
+Add into main raml file as below
+```
+traits:
+  common-header-fragment: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/hascommonheader/1.0.0/hascommonheader.raml
+  common-response-fragment: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/responses-fragments/1.0.0/responses-fragments.raml
+
+types:
+  productDataType: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/products-datatype/1.0.0/products-datatype.raml
+
+/products:
+  get:
+    is: [common-header-fragment,common-response-fragment]
+    description: get products details
+    responses:
+      200:
+        body:
+          application/json:
+            type: productDataType
+```
+
