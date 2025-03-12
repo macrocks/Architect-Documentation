@@ -188,4 +188,67 @@ types:
           application/json:
             type: productDataType
 ```
+### Examples
+Example API fragment is reusable asset to define example for given resource request or response parameters. in below example we will define
+productResponse example which will be referred on main raml
+you can define multiple examples in a single api fragment example.
+```
+#%RAML 1.0 NamedExample
+productsExample:
+    "name": "Lever Clutch Box"
+    "sin": "skhsk29sks"
+    "weight": 100
+    "weighScale": "KG"
 
+productResponses:
+    name: "Ionios Box"
+    sin: "dskj32klds"
+    weight: 203
+    weighScale: "gm"
+```
+you can use as an example for a product response body as below
+```
+/products:
+  get:
+    is: [common-header-fragment,common-response-fragment]
+    description: get products details
+    responses:
+      200:
+        body:
+          application/json:
+            type: productDataType
+            examples: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.3/productsExample.raml
+            //this will show both product response json objects are example (use case - if any element is null or optional, conditional response comes from endpoint)
+```
+
+examples define as map which has key :value while example is a single entity defines. example and examples are exclusive so cannot used together on same endpoint.
+
+### Documentation
+API fragment documentation is useful component which talks more about api and its fucntionality, e.g. from where is getting pulled, is there any rate limiting stratergy on this api.  Contact detials can be added on documentation for support.
+```
+#%RAML 1.0 DocumentationItem
+title: "API Overview"
+content: |
+  ## Introduction
+  This API provides access to customer data, allowing retrieval, creation, and updates.
+  
+  ## Authentication
+  - The API uses OAuth 2.0 for authentication.
+  - Include a Bearer token in the `Authorization` header.
+
+  ## Rate Limits
+  - Each API key is limited to 1000 requests per hour.
+
+  ## Contact Support
+  If you need assistance, please contact [support@example.com](mailto:support@example.com).
+```
+how to use on raml 
+```
+#%RAML 1.0
+title: Customer API
+version: v1
+documentation:
+  - !include docs/api-overview.raml
+```
+
+### 
