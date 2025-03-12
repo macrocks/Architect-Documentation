@@ -66,4 +66,41 @@ E.g.
 API fragments are reusable component of RAML to make the design and build of a reusable API even quicker and easier.
 Another advantage of building an API spec out of reusable API fragments is that consistency of definitions reduces the effort of implementing APIs.
 
-Fragment Type can DataType, Example or Trait
+Fragment Type can DataType, Example, Trait, ResourceTypes, Library, User documentation, Annotation Type
+## Security Scheme
+This is one the RAML fragement which RAML support differenct built in security scheme defiantion in RAML API defination.
+Security Scheme supports OAuth 1.0, OAuth 2.0, Basic Authentication, Digest Authentication, Pass Through, x-{other} Security Scheme types.
+We will create ClientId Enforcement Security Scheme as follows- 
+create new api fragment
+Type- security Scheme
+```
+#%RAML 1.0 SecurityScheme
+type: x-clientId-enforcement
+description: clientId enforcement security fragement for all API's
+describedBy:
+  headers:
+    client_id:
+      description: client id provided during access on api process.
+      type: string
+      required: true
+      example: dsjdd21jns9342knds943
+    client_secret:
+      description: client_secret provided during access on api process.
+      type: string
+      example: fsh328ds832lnkds094dl
+      required: true
+  responses:
+    401:
+      body:
+        application/json:
+          properties:
+            error:
+              type: string
+              description: A descruption of error
+              example: Invalid client credentials.
+          example: 
+            {
+              "error": "Invalid Client Credentials."
+            }
+```
+
