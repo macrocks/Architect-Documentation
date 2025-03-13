@@ -262,42 +262,18 @@ Step 1: Create a Library Fragment
 Create a file named library.raml:
 ```
 #%RAML 1.0 Library
+usage:
 types:
-  Employee:
-    type: object
-    properties:
-      id: integer
-      name: string
-      email: string
+  productDataType: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/products-datatype/1.0.0/products-datatype.raml
+
 traits:
-  secured:
-    headers:
-      Authorization:
-        description: The authorization token
-        type: string
-```
-Step 2: Include the Library in Your API Specification
-In your main RAML file (api.raml), include the library:
-```
-#%RAML 1.0
-title: Employee API
-version: v1
-baseUri: http://api.example.com
-uses:
-  lib: library.raml
+  common-header: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/hascommonheader/1.0.0/hascommonheader.raml
+  common-response: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/responses-fragments/1.0.0/responses-fragments.raml
 
-/employee:
-  get:
-    is: [ lib.secured ]
-    responses:
-      200:
-        body:
-          application/json:
-            type: lib.Employee
-```
-Step 3: Reference Elements from the Library
-In the example above, the Employee type and secured trait from the library.raml are used in the /employee endpoint.
+securitySchemes:
+  cliendId-enforcement: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/security-fragments/1.0.2/security-fragments.raml
 
+```
 Benefits of Using Library Fragments
 Reusability: Define common elements once and reuse them across multiple API specifications.
 Maintainability: Easier to update and manage changes in one place.
