@@ -251,4 +251,54 @@ documentation:
   - !include docs/api-overview.raml
 ```
 
-### 
+### Library
+library fragment is a reusable component that allows you to define and organize multiple types, traits, resource types, and other reusable elements in a single place. This helps in maintaining consistency and reducing redundancy across your API specifications.
+How to Use RAML Library Fragments
+Create a Library Fragment: Define the reusable elements in a library fragment file.
+Include the Library in Your API Specification: Use the uses keyword to include the library in your main RAML file.
+Reference Elements from the Library: Use the defined elements from the library in your API specification.
+Example
+Step 1: Create a Library Fragment
+Create a file named library.raml:
+```
+#%RAML 1.0 Library
+types:
+  Employee:
+    type: object
+    properties:
+      id: integer
+      name: string
+      email: string
+traits:
+  secured:
+    headers:
+      Authorization:
+        description: The authorization token
+        type: string
+```
+Step 2: Include the Library in Your API Specification
+In your main RAML file (api.raml), include the library:
+```
+#%RAML 1.0
+title: Employee API
+version: v1
+baseUri: http://api.example.com
+uses:
+  lib: library.raml
+
+/employee:
+  get:
+    is: [ lib.secured ]
+    responses:
+      200:
+        body:
+          application/json:
+            type: lib.Employee
+```
+Step 3: Reference Elements from the Library
+In the example above, the Employee type and secured trait from the library.raml are used in the /employee endpoint.
+
+Benefits of Using Library Fragments
+Reusability: Define common elements once and reuse them across multiple API specifications.
+Maintainability: Easier to update and manage changes in one place.
+Consistency: Ensures consistent definitions and standards across your APIs.
