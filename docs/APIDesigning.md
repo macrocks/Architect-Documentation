@@ -252,7 +252,7 @@ documentation:
 ```
 
 ### Library
-library fragment is a reusable component that allows you to define and organize multiple types, traits, resource types, and other reusable elements in a single place. This helps in maintaining consistency and reducing redundancy across your API specifications.
+library fragment is a reusable component that allows you to define and organize multiple types, traits, resource types,security-schemes and other reusable elements in a single place. This helps in maintaining consistency and reducing redundancy across your API specifications. (documentation and examples are not part of this section)
 How to Use RAML Library Fragments
 Create a Library Fragment: Define the reusable elements in a library fragment file.
 Include the Library in Your API Specification: Use the uses keyword to include the library in your main RAML file.
@@ -302,3 +302,67 @@ Benefits of Using Library Fragments
 Reusability: Define common elements once and reuse them across multiple API specifications.
 Maintainability: Easier to update and manage changes in one place.
 Consistency: Ensures consistent definitions and standards across your APIs.
+
+Before Applying Library Fragment our API desing looks as below 
+```
+#%RAML 1.0
+title: productsAPI
+version: v1
+protocols: [HTTPS]
+description: This API defined endpoint on Product resource
+documentation:
+  - !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/api-docs/1.0.0/api-docs.raml
+
+securedBy: [security-fragment]
+
+securitySchemes:
+  security-fragment: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/security-fragments/1.0.2/security-fragments.raml
+
+traits:
+  common-header-fragment: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/hascommonheader/1.0.0/hascommonheader.raml
+  common-response-fragment: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/responses-fragments/1.0.0/responses-fragments.raml
+
+uses:
+  productExampleResponse: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.3/productsExample.raml
+
+types:
+  productDataType: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/products-datatype/1.0.0/products-datatype.raml
+
+/products:
+  get:
+    is: [common-header-fragment,common-response-fragment]
+    description: get products details
+    responses:
+      200:
+        body:
+          application/json:
+            type: productDataType
+            examples: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.3/productsExample.raml
+```
+After importing Library Fragment, it will look like
+```
+#%RAML 1.0
+title: productsAPI
+version: v1
+protocols: [HTTPS]
+description: This API defined endpoint on Product resource
+documentation:
+  - !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/api-docs/1.0.0/api-docs.raml
+
+securedBy: [sfdLib.cliendId-enforcement]
+
+uses:
+  sfdLib: /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/sfdlibrary/1.0.1/sfdlibrary.raml
+
+/products:
+  get:
+    is: [sfdLib.common-header,sfdLib.common-response]
+    description: get products details
+    responses:
+      200:
+        body:
+          application/json:
+            type: sfdLib.productDataType
+            examples: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.3/productsExample.raml
+
+```
