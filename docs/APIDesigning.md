@@ -342,3 +342,88 @@ uses:
             examples: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.3/productsExample.raml
 
 ```
+
+### ResourceTypes 
+ResourceTypes is like resource in that it can specify the descriptions, methods, and its parameters. Resource that uses resourceTypes can inherit its nodes. ResourceTypes can use and inherit from other resourceTypes.
+
+ResourceType is basically a template that is used to define the descriptions, methods, and parameters that can be used by multiple resources without writing the duplicate code or repeating code.
+Lets understand that every resource we have GET, POST ,PUT or delete methods(not all manadatory) So we will now make these methods as a template as below using resourceType API fragment
+
+```
+#%RAML 1.0 ResourceType
+get?:  //optional metho using ? syntax
+  description: Fecth data for <<resourcePathName>>
+  displayName: Get <<resourcePathName>>
+  responses:
+    200:
+      body:
+        application/json:
+          example: <<getResponse>>
+
+post?: //optional metho using ? syntax
+  description: create a resource for <<resourcePathName>>
+  displayName: Create <<resourcePathName>>
+  body:
+    application/json:
+      type: <<postDataType>>
+      example: <<postExample>>
+  responses:
+    201:
+      body:
+        application/json:
+          type: <<postResponseType>>
+          example: <<postResponseExample>>
+
+put?:
+  description: update resource for <<resourcePathName>>
+  displayName: Update <<resourcePathName>>
+  body:
+    application/json:
+      type: <<putDataType>>
+      example: <<putExample>>
+  responses:
+    200:
+      body:
+        application/json:
+          type: <<putResponseType>>
+          example: <<putResponseExample>>
+```
+
+Now we will imprt this into main raml and refer these templates <<getResponse>>, <<putDataType>> with actual referenced data items as below :
+
+```
+#%RAML 1.0
+title: productsAPI
+version: v1
+protocols: [HTTPS]
+description: This API defined endpoint on Product resource
+documentation:
+  - !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/api-docs/1.0.0/api-docs.raml
+
+securedBy: [sfdLib.cliendId-enforcement]
+
+resourceTypes:
+  globalResourceType: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/commonresourcetypes/1.0.2/commonresourcetypes.raml
+
+uses:
+  sfdLib: /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/sfdlibrary/1.0.1/sfdlibrary.raml
+
+
+/products:
+  type:
+    globalResourceType:
+      getResponse: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.5/productsExample.raml
+      postDataType: sfdLib.productDataType
+      postExample: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.5/productsExample.raml
+      postResponseExample: !include /exchange_modules/de970fd2-54aa-4845-a9d6-c26eee37ca0d/productsresponse/1.0.5/productsExample.raml
+      postResponseType: sfdLib.productDataType
+  get:
+    is:
+      - sfdLib.common-header
+      - sfdLib.common-response
+  post:
+    is:
+      - sfdLib.common-response
+```
+
+Now we can make it more modularize using collection and item resourcetype. Take a look at https://www.baeldung.com/simple-raml-with-resource-types-and-traits
