@@ -49,7 +49,37 @@ e.g.  /api/v1/customers
 -Authentication & Authorization (OAuth 2.0, JWT, Basic Auth)
 
 -API Policies (Rate Limiting, IP Whitelisting, CORS)
+IP Whitelisting- 
+whitelist/allow IP inbound traffic
 
+CORS
+  CORS (Cross-Origin Resource Sharing) is a security mechanism that allows or restricts web applications running on different origins (domains) from accessing your API resources.
+  
+  Why is CORS Needed?
+  By default, web browsers enforce a same-origin policy, which blocks requests from a different domain, protocol, or port. CORS allows controlled access to your API from different origins by specifying which domains, headers, and methods are allowed.
+  
+  How CORS Policy Works in MuleSoft?
+  MuleSoft provides a CORS Policy that can be applied to APIs through API Manager in Anypoint Platform. This policy:
+  
+  Defines allowed origins (e.g., https://example.com).
+  Specifies allowed HTTP methods (e.g., GET, POST, PUT).
+  Controls which headers can be sent in requests.
+  Determines whether credentials (cookies, authorization headers) can be included.
+
+below is difference between Spike control and Rate limiting policy(sla based)
+```
+In MuleSoft, both Spike Control Policy and Rate Limiting Policy are used to control API traffic, but they serve slightly different purposes. Here’s a breakdown of the differences:
+
+Feature	Spike Control Policy	Rate Limiting Policy
+Purpose	Prevents sudden traffic spikes that can overwhelm the system.	Limits the number of requests a client can make within a specific time window.
+Use Case	Protects APIs from sudden bursts of traffic by allowing only a certain number of requests per unit of time.	Controls API consumption by enforcing a quota over a defined time period.
+Behavior	Implements a sliding window approach to gradually allow traffic instead of an abrupt limit.	Enforces a fixed limit on the number of requests allowed per time window (e.g., 1000 requests per hour).
+Handling Excess Requests	Excess requests are delayed and processed gradually.	Excess requests are rejected with a 429 Too Many Requests error.
+Best For	Handling sudden surges in traffic while maintaining system stability.	Enforcing contractual usage limits on API consumers.
+When to Use Which?
+Use Spike Control when you want to smooth out bursts of traffic and prevent system overload.
+Use Rate Limiting when you want to enforce usage quotas and ensure fair consumption among API users.
+```
 -Data Privacy & Compliance (GDPR, HIPAA)
 
 -Secure Data Transmission (TLS, Encryption)
