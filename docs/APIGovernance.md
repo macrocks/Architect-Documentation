@@ -49,9 +49,25 @@ e.g.  /api/v1/customers
 -Authentication & Authorization (OAuth 2.0, JWT, Basic Auth)
 
 -API Policies (Rate Limiting, IP Whitelisting, CORS)
-IP Whitelisting- 
-whitelist/allow IP inbound traffic
 
+Message Logging -
+  The Message Logging policy logs custom messages using information from incoming requests, responses from the backend, or 
+  information from other policies applied to the same API endpoint.
+  
+  For Mule Gateway this policy works with both Apache log4j and Apache log4j2.
+
+HTTP Caching , IP Whitelist, IP BlockList, JSON Threat protection, Header Remover, Header Injection,ClientId Enforcement,
+Basic Authentication
+
+OAUTH 2.o
+
+
+
+JWT Validator
+
+
+
+  
 CORS
   CORS (Cross-Origin Resource Sharing) is a security mechanism that allows or restricts web applications running on different origins (domains) from accessing your API resources.
   
