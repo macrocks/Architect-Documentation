@@ -64,7 +64,9 @@ OAUTH 2.o
 
 
 JWT Validator
+JSON Web Token (JWT) is a URL-secure method of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS), or as a JSON web encryption (JWE) structure in plain text. This enables the claims to be digitally signed and integrity protected with a message authentication code (MAC). Because the token is signed, you can trust the information and its source.
 
+The JWT Validation policy validates the signature of the token and asserts the values of the claims of all incoming requests by using a JWT with JWS format. The policy does not validate JWT that uses JWE.
 
 
   
@@ -99,6 +101,56 @@ Use Rate Limiting when you want to enforce usage quotas and ensure fair consumpt
 -Data Privacy & Compliance (GDPR, HIPAA)
 
 -Secure Data Transmission (TLS, Encryption)
+1. data at rest
+You can use PGP or XML or GCE encryption modules to encrypt data while storeing or at rest. E.g. while sending data to Anypoint MQ you can use below algo /module to encrypt data so no one can data in queue.
+During PGP encryption, the sender of the message must encrypt its content using the receiver’s public key. So, whenever you want to encrypt messages in your Mule app using someone else’s public key, you must add the public key to your key ring. When adding a new PGP configuration to your Mule app, you need to provide your key ring file so the encryption module can get the public key from it to encrypt the message.
+
+Use a tool such as GPG Suite to import the other party’s public key. See below for details.
+
+Using the same tool, export the public key, selecting binary as the output format. This produces a key ring file with a .gpg extension.
+
+Ensure that the key ring (.gpg) file is stored where the Mule app can access it during runtime.
+
+Example: PGP Configuration
+```
+<crypto:pgp-config name="encrypt-conf" publicKeyring="pgp/pubring.gpg">
+    <crypto:pgp-key-infos>
+        <crypto:pgp-asymmetric-key-info keyId="myself" fingerprint="DE3F10F1B6B7F221"/>
+    </crypto:pgp-key-infos>
+</crypto:pgp-config>
+```
+Decrypt
+During PGP decryption, the receiver of the message must use its private key to decrypt the contents of a message that was encrypted using a public key. Therefore, the receiver must distribute its public key to those who will use it to send encrypted messages.
+
+Example: PGP Configuration
+  ```
+<crypto:pgp-config name="decrypt-conf" privateKeyring="pgp/secring.gpg">
+    <crypto:pgp-key-infos>
+        <crypto:pgp-asymmetric-key-info keyId="myself" fingerprint="DE3F10F1B6B7F221" passphrase="mule1234"/>
+    </crypto:pgp-key-infos>
+</crypto:pgp-config>
+```
+https://docs.mulesoft.com/mule-runtime/latest/cryptography-pgp
+
+2. data at transit
+
+
+3. secure properties or configurations
+Secure Configuration Properties
+You can encrypt configuration properties as another security level for your applications. To create secure configuration properties, review the following process:
+
+Create a secure configuration properties file.
+Define secure properties in the file by enclosing the encrypted values between the sequence ![value].
+Configure the file in the project with the Mule Secure Configuration Properties Extension module. The file must point to or include the decryption key.
+https://docs.mulesoft.com/mule-runtime/latest/secure-configuration-properties
+```
+<secure-properties:config key="${runtime.property}"
+  file="file1.yaml" name="test">
+    <secure-properties:encrypt/>
+</secure-properties:config>
+
+<global-property name="prop" value="my-${secure::property.key1}"/>
+```
 
 ## API Lifecycle Management
 -API Discovery & Cataloging
