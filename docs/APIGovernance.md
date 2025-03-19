@@ -151,12 +151,12 @@ In one way SSL, only client validates the server to ensure that it receives data
 
 Client (Truststore)   --->  server (keystore)
 ```
-create a keystore using keytool
-keytool -genkey -alias *.localhost -keyalg RSA -keystore muledemo.pfx -storetype PKCS12 -storepass 123456
-it will generate muledemo.pfx  -- import this keystore into server api keystore section and deploy api with HTTPS config
-get public certificate out of this keystrore  or insecure option.
-keytool -export -alias *.localhost -file muledemo_pubcert.cer -keystore muledemo.pfx
-we can conigure this to another api(client) as truststore who will be calling server api which has above keystore in its keystore configuration
+1. create a keystore using keytool
+2. keytool -genkey -alias *.localhost -keyalg RSA -keystore muledemo.pfx -storetype PKCS12 -storepass 123456
+3. it will generate muledemo.pfx  -- import this keystore into server api keystore section and deploy api with HTTPS config
+4. get public certificate out of this keystrore  or insecure option.
+5. keytool -export -alias *.localhost -file muledemo_pubcert.cer -keystore muledemo.pfx
+6. we can conigure this to another api(client) as truststore who will be calling server api which has above keystore in its keystore configuration
 
 http://client-url/api/check  --> it will call server api on https://server-api/api/check
 ```
@@ -173,26 +173,25 @@ Contrary to one-way SSL; in case of two-way SSL, both client and server authenti
 
 ```
 Client (Truststore, keystore)  -----> server (truststore, keystore)
-create a keystore using keytool
-keytool -genkey -alias serverkeystore_ks -keyalg RSA -keystore serverkeystore_ks.pfx -storetype PKCS12 -storepass 123456
-it will generate muledemo.pfx  -- import this keystore into server api keystore section 
-keytool -genkey -alias servertruststore_ts -keyalg RSA -keystore servertruststore_ts.pfx -storetype PKCS12 -storepass 123456
-Also generate truststore certificate which needs to add public certificate of client keystore
 
-lets generate client keystore
-keytool -genkey -alias clientkeystore_ts -keyalg RSA -keystore clientkeystore_ts.pfx -storetype PKCS12 -storepass 123456
-it will generate muledemo.pfx  -- import this keystore into server api keystore section 
-lets get public certificate from client keystore now.
-get public certificate out of this keystrore  or insecure option.
-keytool -export -alias client_public -file mclient_pubcert.cer -keystore clientkeystore_ts.pfx
+1. create a keystore using keytool
+2. keytool -genkey -alias serverkeystore_ks -keyalg RSA -keystore serverkeystore_ks.pfx -storetype PKCS12 -storepass 123456
+3. it will generate muledemo.pfx  -- import this keystore into server api keystore section 
+4. keytool -genkey -alias servertruststore_ts -keyalg RSA -keystore servertruststore_ts.pfx -storetype PKCS12 -storepass 123456
+5. Also generate truststore certificate which needs to add public certificate of client keystore
 
-
-now import public certificate of client into truststore of server 
-keystool -import -trustcacerts -keystore servertruststore_ts.pfx -alias client_pubcer -file /clients/mclient_pubcert.cer
+A. lets generate client keystore
+B. keytool -genkey -alias clientkeystore_ts -keyalg RSA -keystore clientkeystore_ts.pfx -storetype PKCS12 -storepass 123456
+c. it will generate muledemo.pfx  -- import this keystore into server api keystore section 
+D. lets get public certificate from client keystore now.
+E. get public certificate out of this keystrore  or insecure option.
+F. keytool -export -alias client_public -file mclient_pubcert.cer -keystore clientkeystore_ts.pfx
+G. now import public certificate of client into truststore of server 
+H. keystool -import -trustcacerts -keystore servertruststore_ts.pfx -alias client_pubcer -file /clients/mclient_pubcert.cer
 
 //check all certificate on client truststore
 >keytool -list -keystore servertruststore_ts.pfx  it will show 2 entries, server trustrore and client pub cert
->
+
 http://client-url/api/check  --> it will call server api on https://server-api/api/check
 ```
 Reference - https://tutorialspedia.com/an-overview-of-one-way-ssl-and-two-way-ssl/
