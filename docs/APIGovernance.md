@@ -215,27 +215,104 @@ https://docs.mulesoft.com/mule-runtime/latest/secure-configuration-properties
 
 ## API Lifecycle Management
 -API Discovery & Cataloging
+API Discovery and Cataloging in MuleSoft
+MuleSoft provides a robust API discovery and cataloging mechanism through Anypoint Exchange and API Manager. These tools help organizations document, manage, and reuse APIs across different teams and projects.
+
+1. API Discovery
+What is API Discovery?
+API discovery refers to the ability to automatically detect and register APIs within the Anypoint Platform. It helps developers and administrators track API usage, enforce security policies, and ensure consistency in API governance.
+
+How Does API Discovery Work in MuleSoft?
+MuleSoft provides Auto-Discovery, a feature that allows API implementations deployed in Mule runtime to be linked to an API specification in API Manager. This enables governance, monitoring, and policy enforcement.
+
+Steps to Configure API Auto-Discovery:
+Design the API in Anypoint Exchange – Define the API specification using RAML or OAS (Swagger).
+Create an API in API Manager – Register the API in API Manager to enable tracking and security policies.
+Enable Auto-Discovery in Mule Application – Add the API Auto-Discovery configuration in the Mule application’s YAML file or use Anypoint Studio.
+Deploy and Manage – Deploy the application to CloudHub or an on-prem Mule runtime. The API is now discoverable in API Manager.
+Auto-Discovery Configuration in MuleSoft
+To enable auto-discovery in a MuleSoft application, you configure the api.id in the API Gateway component:
+```
+<api-gateway:api autodiscovery="true" apiId="123456" />
+```
+or via YAML configuration:
+```
+anypoint:
+  autodiscovery:
+    apiId: "123456"
+```
+This connects the deployed API with the API definition in API Manager.
+
+2. API Cataloging
+What is API Cataloging?
+API cataloging is the process of documenting and organizing APIs in a central repository, making them easily discoverable and reusable by developers. In MuleSoft, this is managed through Anypoint Exchange.
+
+Key Features of Anypoint Exchange for API Cataloging:
+API Documentation – Provides API specifications in RAML, OAS, or WSDL formats.
+Mocking Service – Enables testing APIs before implementation.
+Versioning – Supports multiple API versions for better lifecycle management.
+Collaboration & Searchability – Teams can publish, share, and search for APIs across the organization.
+Governance & Best Practices – Enforces consistency in API design through templates and policies.
+Publishing an API to Exchange:
+Design the API – Define the API contract using RAML or OAS in Anypoint Design Center.
+Publish to Exchange – Push the API to Exchange from Design Center or API Manager.
+Share & Manage – Developers can discover and reuse APIs by searching for them in Exchange.
+Apply Governance – Leverage API Governance to enforce security and best practices.
+Example of an API Specification in Exchange (RAML):
+```
+#%RAML 1.0
+title: Customer API
+version: v1
+baseUri: https://api.example.com/customers
+/mediaType: application/json
+
+types:
+  Customer:
+    type: object
+    properties:
+      id: string
+      name: string
+      email: string
+
+/customer:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Customer
+```
+Once published, this API is available in Anypoint Exchange, where developers can reuse or extend it.
+
+3. Benefits of API Discovery & Cataloging in MuleSoft
+✅ Improved API Governance – Ensures compliance with security and quality standards.
+✅ Enhanced Reusability – Helps teams discover existing APIs and avoid duplication.
+✅ Better Collaboration – Facilitates API sharing across teams via Anypoint Exchange.
+✅ Faster Development – Developers can quickly find and use pre-built APIs.
+✅ Real-Time Monitoring – Auto-discovered APIs can be monitored for performance and security in API Manager.
 
 -API Versioning & Deprecation Strategy
+
+
 
 -API Retirement & Sunsetting Policies
 
 ## API Governance Policies in Anypoint Platform
 -Applying API Policies via API Manager
-
+Already covered - automated policies are available for runtime fabric
 -Custom Policies & Policy Enforcement
 
 -API Rate Limiting, Throttling & SLA Tiers
-
+Info available on the top level topics
 -API Auto-discovery & Monitoring
-
+same- info available above
 ## API Quality & Standardization
 -API Contract Testing
 
 -Automated API Validation (Schema Validation, Response Codes)
 
 -API Mocking & Simulation
-
+Use anypoint exachange as well as wiremock tool
 -Error Handling & Standardized Responses
 
 ## API Analytics & Monitoring
