@@ -133,6 +133,12 @@ Example: PGP Configuration
 https://docs.mulesoft.com/mule-runtime/latest/cryptography-pgp
 
 2. data at transit
+KEYSTORE
+A Java keystore stores private keys, certificates with public keys, or just secret keys that a specific program should present to both parties (server or client) for verification. It stores each by an alias which is the name for our certificate, for ease of lookup.
+
+TRUSTSTORE
+A truststore is the opposite. While a keystore typically holds onto certificates that identify us, a truststore holds onto certificates that identify others.
+
 Onw Way SSL
 In one way SSL, only client validates the server to ensure that it receives data from the intended server. For implementing one-way SSL, server shares its public certificate with the clients. 
 
