@@ -150,6 +150,7 @@ In one way SSL, only client validates the server to ensure that it receives data
 5. After agreeing on this secret key, client and server communicate further for actual data transfer by encrypting/decrypting data using this key. 
 
 Client (Truststore)   --->  server (keystore)
+```
 create a keystore using keytool
 keytool -genkey -alias *.localhost -keyalg RSA -keystore muledemo.pfx -storetype PKCS12 -storepass 123456
 it will generate muledemo.pfx  -- import this keystore into server api keystore section and deploy api with HTTPS config
@@ -158,7 +159,7 @@ keytool -export -alias *.localhost -file muledemo_pubcert.cer -keystore muledemo
 we can conigure this to another api(client) as truststore who will be calling server api which has above keystore in its keystore configuration
 
 http://client-url/api/check  --> it will call server api on https://server-api/api/check
-
+```
 
 Mutual (Two Way) SSL
 Contrary to one-way SSL; in case of two-way SSL, both client and server authenticate each other to ensure that both parties involved in the communication are trusted. Both parties share their public certificates to each other and then verification/validation is performed based on that.
@@ -170,6 +171,7 @@ Contrary to one-way SSL; in case of two-way SSL, both client and server authenti
 5. Server validates/verifies the received certificate. Server verifies the certificate through certification authority (CA) for CA signed certificates.
 6. After completion of handshake process, client and server communicate and transfer data with each other encrypted with the secret keys shared between the two during handshake. 
 
+```
 Client (Truststore, keystore)  -----> server (truststore, keystore)
 create a keystore using keytool
 keytool -genkey -alias serverkeystore_ks -keyalg RSA -keystore serverkeystore_ks.pfx -storetype PKCS12 -storepass 123456
@@ -191,10 +193,8 @@ keystool -import -trustcacerts -keystore servertruststore_ts.pfx -alias client_p
 //check all certificate on client truststore
 >keytool -list -keystore servertruststore_ts.pfx  it will show 2 entries, server trustrore and client pub cert
 >
-
-
-
 http://client-url/api/check  --> it will call server api on https://server-api/api/check
+```
 Reference - https://tutorialspedia.com/an-overview-of-one-way-ssl-and-two-way-ssl/
 
 4. secure properties or configurations
