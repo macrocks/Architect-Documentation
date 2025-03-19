@@ -133,9 +133,13 @@ Example: PGP Configuration
 https://docs.mulesoft.com/mule-runtime/latest/cryptography-pgp
 
 2. data at transit
+Onw Way SSL
 
 
-3. secure properties or configurations
+Mutual (Two Way) SSL
+
+
+4. secure properties or configurations
 Secure Configuration Properties
 You can encrypt configuration properties as another security level for your applications. To create secure configuration properties, review the following process:
 
