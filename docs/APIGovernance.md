@@ -134,9 +134,32 @@ https://docs.mulesoft.com/mule-runtime/latest/cryptography-pgp
 
 2. data at transit
 Onw Way SSL
+In one way SSL, only client validates the server to ensure that it receives data from the intended server. For implementing one-way SSL, server shares its public certificate with the clients. 
+
+![image](https://github.com/user-attachments/assets/c2726c1e-8276-499f-a3e4-2ef37c38e3f3)
+1. Client requests for some protected data from the server on HTTPS protocol. This initiates SSL/TLS handshake process. 
+2. Server returns its public certificate to the client along with server hello message.
+3. Client validates/verifies the received certificate. Client verifies the certificate through certification authority (CA) for CA signed certificates.
+4. SSL/TLS client sends the random byte string that enables both the client and the server to compute the secret key to be used for encrypting subsequent message data. The random byte string itself is encrypted with the server’s public key.
+5. After agreeing on this secret key, client and server communicate further for actual data transfer by encrypting/decrypting data using this key. 
+
+Client (Truststore)   --->  server (keystore)
+
+
 
 
 Mutual (Two Way) SSL
+Contrary to one-way SSL; in case of two-way SSL, both client and server authenticate each other to ensure that both parties involved in the communication are trusted. Both parties share their public certificates to each other and then verification/validation is performed based on that.
+![image](https://github.com/user-attachments/assets/b3f0cd67-4272-4f4b-bd1e-2c2c8b2238cc)
+1.Client requests a protected resource over HTTPS protocol and the SSL/TSL handshake process begins.
+2 Server returns its public certificate to the client along with server hello. 
+3. Client validates/verifies the received certificate. Client verifies the certificate through certification authority (CA) for CA signed certificates.
+4. If Server certificate was validated successfully, client will provide its public certificate to the server.
+5. Server validates/verifies the received certificate. Server verifies the certificate through certification authority (CA) for CA signed certificates.
+6. After completion of handshake process, client and server communicate and transfer data with each other encrypted with the secret keys shared between the two during handshake. 
+
+Client (Truststore, keystore)  -----> server (truststore, keystore)
+
 
 
 4. secure properties or configurations
