@@ -2,14 +2,6 @@
 
 we will talk about integration patterns and their implementation ways in mulesoft
 
-1. Synchronous (REST) Based
-2. Asymchronous (Event) based
-3. Pub-Sub Model
-4. Transformation
-5. scatter-gather
-6. Routing
-
-
 
 1. Point-to-Point Integration
 Pattern: Directly connects two applications.
@@ -62,3 +54,5 @@ Implementation in MuleSoft:
 Try Scope for error handling.
 On Error Propagate & On Error Continue in Error Handling Strategies.
 Retry Scope to handle transient failures.
+10. Brodcast Messaging- mulesoft uses anypoint exchange type queue to broadcast message to multiple consumers
+11. 
