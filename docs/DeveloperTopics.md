@@ -79,4 +79,155 @@ Example in MuleSoft	Validation, Authentication Failure, On Error Propagate	Retry
 3. Batch Data synchronization (change data capture batch processing)
 4. Remote Call in (mulesoft will be calling insert/upsert/delete on objects) soap rest bulk api options
 
+# **Integration Patterns in MuleSoft**  
+MuleSoft follows well-defined **Enterprise Integration Patterns (EIPs)** to enable smooth communication between systems, applications, and services. These patterns help solve common integration challenges such as data transformation, routing, and messaging.  
+
+---
+
+## **Key Integration Patterns in MuleSoft**
+Here are some of the most commonly used integration patterns:
+
+### **1️⃣ API-Led Connectivity** *(MuleSoft-Specific)*
+**Concept:**  
+- Organizes APIs into three layers:  
+  - **Experience Layer** – Provides APIs for web, mobile, or third-party applications.  
+  - **Process Layer** – Orchestrates multiple APIs to create business processes.  
+  - **System Layer** – Connects directly to backend systems like databases, SAP, or legacy applications.  
+
+✅ **Example:** A banking app where the Experience API calls a Process API, which then retrieves customer data from a System API connected to the database.  
+
+---
+
+### **2️⃣ Request-Reply Pattern**
+**Concept:**  
+- A synchronous pattern where a request is sent, and a response is expected.  
+- Used in real-time scenarios where the client needs an immediate response.  
+
+✅ **Example:** A customer places an order in an e-commerce system, and MuleSoft retrieves available stock in real time before confirming the order.  
+
+🔹 **MuleSoft Implementation:**  
+```xml
+<http:listener config-ref="HTTP_Listener_config" path="/checkStock" method="GET"/>
+<flow name="CheckStock">
+    <http:request method="GET" url="https://inventory.api.com/stock" />
+</flow>
+```
+
+---
+
+### **3️⃣ Event-Driven (Pub-Sub) Pattern**
+**Concept:**  
+- **Publisher (Producer)** sends events to a messaging system.  
+- **Subscribers (Consumers)** listen and process events asynchronously.  
+- Ensures loose coupling between systems.  
+
+✅ **Example:** A **payment service** publishes a "Payment Processed" event, and multiple consumers (billing, notifications, and analytics services) listen for it.  
+
+🔹 **MuleSoft Implementation Using Anypoint MQ:**  
+```xml
+<flow name="PublishEvent">
+    <mq:publish destination="payments.queue" message="#[payload]" />
+</flow>
+
+<flow name="ConsumeEvent">
+    <mq:listener destination="payments.queue"/>
+</flow>
+```
+
+---
+
+### **4️⃣ Scatter-Gather Pattern**
+**Concept:**  
+- Sends a request to multiple targets in **parallel** and aggregates the responses.  
+- Used for calling multiple APIs or services simultaneously.  
+
+✅ **Example:** A travel booking system calls multiple hotel, flight, and car rental APIs and returns the combined response.  
+
+🔹 **MuleSoft Implementation:**  
+```xml
+<scatter-gather>
+    <http:request url="https://flights.api.com/search"/>
+    <http:request url="https://hotels.api.com/search"/>
+    <http:request url="https://rentals.api.com/search"/>
+</scatter-gather>
+```
+
+---
+
+### **5️⃣ Message Routing (Choice & Content-Based Routing)**
+**Concept:**  
+- Routes messages to different destinations based on conditions.  
+- Ensures data is sent to the correct system based on its content.  
+
+✅ **Example:**  
+- If a payment is over **$10,000**, route to the **Fraud Detection System**.  
+- If under **$10,000**, route to the **Standard Processing System**.  
+
+🔹 **MuleSoft Implementation:**  
+```xml
+<choice>
+    <when expression="#[payload.amount > 10000]">
+        <flow-ref name="FraudCheckFlow"/>
+    </when>
+    <otherwise>
+        <flow-ref name="StandardPaymentFlow"/>
+    </otherwise>
+</choice>
+```
+
+---
+
+### **6️⃣ Batch Processing Pattern**
+**Concept:**  
+- Processes **large volumes of data** in chunks to improve efficiency.  
+- Used for handling **bulk data processing** (e.g., database migrations, ETL jobs).  
+
+✅ **Example:** A company processes **millions of customer transactions** from a CSV file and inserts them into a database.  
+
+🔹 **MuleSoft Implementation:**  
+```xml
+<batch:job>
+    <batch:input>
+        <file:read path="/transactions.csv"/>
+    </batch:input>
+    <batch:process-record>
+        <db:insert config-ref="DB_Config"/>
+    </batch:process-record>
+</batch:job>
+```
+
+---
+
+### **7️⃣ Webhooks (Event-Driven API Pattern)**
+**Concept:**  
+- MuleSoft listens for **external system events** and triggers a flow.  
+- Used for **real-time updates** without polling.  
+
+✅ **Example:** A **CRM system** sends a webhook when a new lead is created, triggering a MuleSoft flow to update the marketing database.  
+
+🔹 **MuleSoft Implementation:**  
+```xml
+<http:listener config-ref="WebhookListener" path="/new-lead" method="POST"/>
+<flow name="LeadProcessing">
+    <db:insert config-ref="CRM_DB"/>
+</flow>
+```
+
+---
+
+## **Choosing the Right Pattern**
+| **Pattern**            | **Best For** |
+|------------------------|-------------|
+| API-Led Connectivity   | Modular, reusable APIs |
+| Request-Reply         | Real-time API calls |
+| Pub-Sub (Event-Driven) | Asynchronous messaging |
+| Scatter-Gather        | Parallel processing |
+| Content-Based Routing | Conditional message delivery |
+| Batch Processing      | Large data processing |
+| Webhooks             | Real-time event triggers |
+
+---
+
+### **Final Thoughts**
+MuleSoft's integration patterns provide **scalability, reliability, and efficiency** for connecting diverse systems. Choosing the right pattern depends on **business needs, data volume, and performance requirements**.
 
