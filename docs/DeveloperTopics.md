@@ -73,6 +73,10 @@ Goal	Avoid wasting resources	Ensure system resilience
 
 Example in MuleSoft	Validation, Authentication Failure, On Error Propagate	Retry Scope, Circuit Breaker, On Error Continue
 
-
+# Salesforce Integration patterns
+1. Request -reply pattern  (REST/SOAP Endpoint calls) 
+2. Fire n Forget (Asynchronous/Event Based) Platform event based(platformevents)
+3. Batch Data synchronization (change data capture batch processing)
+4. Remote Call in (mulesoft will be calling insert/upsert/delete on objects) soap rest bulk api options
 
 
