@@ -32,3 +32,21 @@ It consist of two components
 
    ![image](https://github.com/user-attachments/assets/fdd3ccc0-1aa4-4f57-bbe9-31efac5c4431)
 
+**Scaling**
+
+A single Flex Gateway can support up to 1,000 backend APIs. For high availability, it is best to deploy multiple gateways running in parallel. Deploying multiple gateways increases gateway performance and robustness, and is recommended for high-performance applications that must scale.
+
+**API Instances**
+
+Flex Gateway supports HTTP and REST API instances.Flex Gateway does not natively support SOAP APIs and does not provide any schema validation for XML. However, you can publish an HTTP API instance to secure any API that uses HTTP protocol.
+**Connected Mode** 
+**Local Mode**
+
+In simple terms - Anypoint Gateway you can manage mule or non -mule api's deployed anywhere.  Anypoint flex gatway can be installed in connected mode or local mode.
+Connected mode will allow you to manage api's policies and alertys and key metrics on Anypoint platform. While on local mode you need to  manage it using configuration file.
+
+you need to configure your api management under flex gateway setup folder - it will have gateway.confg , .pem and .key file along with that add api.yaml file which has api configurationa nd policy details.
+customer url ---> url:port 8081 ---> flex gateway port forwarding to contatiner port 8081->9000 ---> containter port ---forward request to api port 9000->9001
+
+For multiple api's to configure against flex gateway -- we need to run onre more container with diferent port and then setup confi gor this api as well on .yaml file.
+
