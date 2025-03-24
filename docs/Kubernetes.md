@@ -59,5 +59,21 @@ db can not be replicated as it is data so statefulsets is used to create replica
 
 Either it is kubernetes dashboard or CLI or API , they all talk to control plan API server (this is only entrypoint to kubernetes)
 
+declarative. json based.yaml file
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:  //metadata 
+  name: nginz-deployment
+  labels: .....
+spec://specifation -- spsecicif to application
+  replicas: 2  //status- enginx will check for desired vs actual status
+  selector: ...
+  template: ....
+```
+
+etcd stores this real time status of kubernetes component. minikube and kubectl -- for local macine setup n to interact with nodes.
+
 
 
