@@ -3,13 +3,16 @@
 Anypoint API Governance is a component of Anypoint Platform that enables you to apply governance rules to your APIs as part of the API lifecycle.
 With Anypoint API Governance you can:
 Improve your organization’s API quality:
-Identify conformance issues in governed APIs and take steps to resolve them.
+  Identify conformance issues in governed APIs and take steps to resolve them.
+
 Share and enforce governance best practices:
-Customize and publish governance rulesets to share and enforce organization-specific best practices with your developers.
+  Customize and publish governance rulesets to share and enforce organization-specific best practices with your developers.
+  
 Apply consistent rules from design time to deployment:
-Use governance rulesets to apply centralized governance to multiple aspects of your APIs, from specifications at design time to instances at deployment.
+  Use governance rulesets to apply centralized governance to multiple aspects of your APIs, from specifications at design time to instances at deployment.
+  
 Enforce governance within your DevOps organization:
-Automate API governance in your CI/CD pipeline using CLI commands or through API solutions using the experience API.
+  Automate API governance in your CI/CD pipeline using CLI commands or through API solutions using the experience API.
 
 Governance Console - 
 Create governance profiles to apply governance rulesets to a targeted set of APIs. The API Governance console then provides a conformance summary for all of your validated APIs.
