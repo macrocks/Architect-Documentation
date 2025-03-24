@@ -14,7 +14,7 @@ increase in containers, its important to have a orchestrator or manager.Thats wh
 
 ![image](https://github.com/user-attachments/assets/08e4d331-5b5a-4bea-ac19-c5efea1daa98)
 
-kubernetes cluster -- 
+## kubernetes cluster -- 
 atleast one master nod(control plane) and connected with no of worder node. 
 each worker node has a kublet (kubernetes running agent) which communicates with master node and control plane.
 each worker node also contains no of container whcih are running applcations/microservices within thecontainer.
@@ -55,7 +55,9 @@ blueprint for pods is called deployment - we define no of replicas
 
 db can not be replicated as it is data so statefulsets is used to create replica for DB.it is advisable to have DB outside k cluster while applications inside kubernetes.
 
+## Kubernetes COnfiguration
 
+Either it is kubernetes dashboard or CLI or API , they all talk to control plan API server (this is only entrypoint to kubernetes)
 
 
 
