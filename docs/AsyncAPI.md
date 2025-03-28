@@ -298,4 +298,5 @@ RAML Datatype for common fragments in Async API
 
 There are scenario’s that we have common fragments of datatypes which can be used across different channels or payload. We can take help of RAM datatype and define them to avoid duplicate code/specification.
 
-An example is provided on below link.
+
+Cloudevent specification- https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md 
