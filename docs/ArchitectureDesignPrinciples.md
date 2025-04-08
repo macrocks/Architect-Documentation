@@ -79,5 +79,5 @@ Layered architecture supports load balancing, security, and redundancy.
 Code on Demand (optional) can enhance flexibility by allowing dynamic functionality.
 By following these principles, RESTful APIs provide a structured, efficient, and predictable way to build web services that can handle anything from simple applications to globally distributed platforms.
 
-Conclusion
-REST isn’t just about using GET and POST—it’s an entire architectural style designed to make systems scalable, flexible, and efficient. By understanding and applying these six constraints, developers can build APIs that are easy to use, maintain, and extend. Whether you’re designing a small app or a massive distributed system, sticking to these principles will keep your API running smoothly for years to come.
+![image](https://github.com/user-attachments/assets/6c127057-9040-4fa6-b7e4-101cf1544917)
+
