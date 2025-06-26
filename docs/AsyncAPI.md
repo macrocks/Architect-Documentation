@@ -31,7 +31,7 @@ Implementation
 Let's define Async API as below. 
 
 
-
+```
 asyncapi: 2.0.0
 info:
   title: Hello world application
@@ -44,32 +44,21 @@ channels:
           type: string
           pattern: '^hello .+$'
  
-
+```
 Let's walk through this.
 
 asyncapi: 2.0.0  → First Line depicts type of document (asyncapi) and version of the document type. (Mulesoft support asycnapi api document 2.0.0 version)
-
- 
-
-
 
 info:
   title: Hello world application
   version: '0.1.0'
 In Info section which is not mandatory but provides more information about application
-
 title: - this should be your application name e.g., e-ev-poll-cms
-
 version - provide info on versioning of api
-
-
 
 channels:
   hello:
 channels section will define broker name e.g.  mq-event-sales   This is name of your MQ on which application is publishing messages or subscribed to recieve new messages
-
-
-
     publish:  
       message:
         payload:
@@ -80,9 +69,7 @@ This is the payload of the message that the Hello world application is subscribe
 message section will define structure of your message to be exchanged. As Async api is also supported by open api spec so all data types are defined in open Api spec all can defined n supported here as well.
 
 another example of payload 
-
-
-
+```
         payload:
           type: object
           properties:
@@ -94,6 +81,8 @@ another example of payload
               type: string
               minimum: 0
               Description: ticker symbol of the stock.
+
+```
 Now let’s implement Async API on Anypoint  platform 
 
 Implementation Steps
@@ -101,8 +90,6 @@ Implementation Steps
 Open Any point Design Center → click on Create → select New AsyncAPI
 
 Open image-20230613-112623.png
-
- 
 
 provide project name as your API name ands select AsyncAPI(YAML) lang. Make sure here Project Name is same as your actual runtime api name.
 
@@ -122,7 +109,6 @@ add categories defined in Anypoint Exchange API Categories & Tags - Enterprise I
 
 add tags to provide more info in short form.
 
- 
 
 Practical Example
 
@@ -130,14 +116,9 @@ p-ev-poll-prepay is an Event Driven API which is subscribed to Anypoint MQ(polli
 
 Open image-20230523-083638-20230620-124807.png
 
- 
 
 Subscribed Queue (Polling Message) 
-
- 
-
-
-
+```
 asyncapi: '2.0.0'
 info:
   title: p-ev-poll-prepay
@@ -201,14 +182,14 @@ channels:
                 type: string
               stopFeeLoan:
                 type: string        
- 
+ ```
 
  
 
 Publishing Queue (push message)
 
 
-
+```
 asyncapi: '2.0.0'
 info:
   title: p-ev-poll-prepay
@@ -261,7 +242,7 @@ channels:
                 format: integer
               status:
                 type: string
- 
+ ```
 
 Exchange Asset sample is present on below link - p-ev-poll-prepay (mulesoft.com)
 
@@ -282,17 +263,13 @@ We cannot have example for payload message for a channel in Async API.
 Async API doesn’t have any impact on Runtime Manger API.  Runtime Manager API are viewed on Visualizer. 
 
 As there is no API Manage API so alert triggering will not possible
-
  
 
 Async API in JSON format
 
  in case anyone is interested to create AsyncApi in JSON format.
 
-
 JSON Format Async API Example
-
-
 
 RAML Datatype for common fragments in Async API
 
